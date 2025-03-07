@@ -9,7 +9,7 @@
 import Foundation
 
 /// Presentation layer errors for headlines feature
-public enum HeadlineError: Error, Equatable {
+public enum PresentationError: Error, Equatable {
     case connectivity
     case serverError
     case notFound

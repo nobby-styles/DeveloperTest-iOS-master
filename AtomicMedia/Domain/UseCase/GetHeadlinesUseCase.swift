@@ -28,15 +28,15 @@ public class DefaultGetHeadlinesUseCase: GetHeadlinesUseCase {
             // Map domain errors to presentation errors
             switch error {
             case .connectivity:
-                throw HeadlineError.connectivity
+                throw PresentationError.connectivity
             case .notFound:
-                throw HeadlineError.notFound
+                throw PresentationError.notFound
             case .serverError:
-                throw HeadlineError.serverError
+                throw PresentationError.serverError
             }
         } catch {
             // Handle any unexpected errors
-            throw HeadlineError.unknown
+            throw PresentationError.unknown
         }
     }
 }
@@ -47,7 +47,7 @@ public protocol HeadlineRepository {
 }
 
 extension DomainError {
-    var asPresentationError: HeadlineError {
+    var asPresentationError: PresentationError {
         switch self {
         case .connectivity:
             return .connectivity

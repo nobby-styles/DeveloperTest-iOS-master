@@ -12,7 +12,7 @@ import Foundation
 public class HeadlineViewModel: ObservableObject {
     @Published public var headlines: [Headline] = []
     @Published public var isLoading: Bool = false
-    @Published public var error: HeadlineError?
+    @Published public var error: PresentationError?
     
     private let getHeadlinesUseCase: GetHeadlinesUseCase
     private var currentTask: Task<Void, Never>?
@@ -66,7 +66,7 @@ public class HeadlineViewModel: ObservableObject {
 }
 
 extension Error {
-    var asHeadlineError: HeadlineError {
+    var asHeadlineError: PresentationError {
         if let domainError = self as? DomainError {
             return domainError.asPresentationError
         }
