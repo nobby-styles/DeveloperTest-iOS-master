@@ -17,7 +17,8 @@ struct AtomicMediaDeveloperApp: App {
         WindowGroup {
             HeadlinesView(viewModel: headlineViewModel)
                 .onAppear {
-                    // Pre-fetch headlines when app starts to avoid the initial error
+                    // Set loading state and fetch data immediately
+                    headlineViewModel.startLoading()
                     headlineViewModel.refreshHeadlines()
                 }
         }

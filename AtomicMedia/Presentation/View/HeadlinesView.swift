@@ -5,6 +5,14 @@
 //  Created by Robert Redmond on 07/03/2025.
 //
 
+
+//
+//  HeadlinesView.swift
+//  AtomicMediaDeveloper
+//
+//  Created by Robert Redmond on 07/03/2025.
+//
+
 import SwiftUI
 
 struct HeadlinesView: View {
@@ -16,11 +24,16 @@ struct HeadlinesView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                contentView
-                
+            Group {
                 if viewModel.isLoading {
+                    // Loading state takes highest priority
                     loadingView
+                } else if let error = viewModel.error {
+                    // Error state is next
+                    errorView(error: error)
+                } else {
+                    // Content state is shown if not loading and no error
+                    headlinesListView
                 }
             }
             .navigationTitle("Headlines")
@@ -34,7 +47,11 @@ struct HeadlinesView: View {
                 }
             }
             .onAppear {
-                viewModel.refreshHeadlines()
+                // Only fetch if headlines are empty
+                if viewModel.headlines.isEmpty {
+                    viewModel.startLoading()
+                    viewModel.refreshHeadlines()
+                }
             }
             .refreshable {
                 await viewModel.fetchHeadlines()
@@ -43,39 +60,36 @@ struct HeadlinesView: View {
     }
     
     @ViewBuilder
-    private var contentView: some View {
-        if let error = viewModel.error {
-            errorView(error: error)
-        } else {
-            headlinesListView
-        }
-    }
-    
     private var headlinesListView: some View {
-        List {
-            ForEach(viewModel.headlines) { headline in
-                HeadlineRowView(headline: headline)
+        if viewModel.headlines.isEmpty {
+            // Show empty state
+            VStack(spacing: 16) {
+                Image(systemName: "newspaper")
+                    .font(.system(size: 48))
+                    .foregroundColor(.secondary)
+                
+                Text("No Headlines")
+                    .font(.headline)
+                
+                Text("There are no headlines to display at this time.")
+                    .foregroundColor(.secondary)
+                
+                Button("Refresh") {
+                    viewModel.refreshHeadlines()
+                }
+                .buttonStyle(.borderedProminent)
+                .padding(.top, 8)
             }
-        }
-        .listStyle(.plain)
-        .overlay(
-            Group {
-                if viewModel.headlines.isEmpty && !viewModel.isLoading {
-                    VStack(spacing: 16) {
-                        Image(systemName: "newspaper")
-                            .font(.system(size: 48))
-                            .foregroundColor(.secondary)
-                        
-                        Text("No Headlines")
-                            .font(.headline)
-                        
-                        Text("There are no headlines to display at this time.")
-                            .foregroundColor(.secondary)
-                    }
-                    .padding()
+            .padding()
+        } else {
+            // Show the list if we have headlines
+            List {
+                ForEach(viewModel.headlines) { headline in
+                    HeadlineRowView(headline: headline)
                 }
             }
-        )
+            .listStyle(.plain)
+        }
     }
     
     private func errorView(error: HeadlineError) -> some View {
@@ -101,13 +115,21 @@ struct HeadlinesView: View {
     }
     
     private var loadingView: some View {
-        ZStack {
-            Color(.systemBackground).opacity(0.8)
+        VStack {
+            Spacer()
             
             ProgressView()
                 .scaleEffect(1.5)
+                .padding()
+            
+            Text("Loading headlines...")
+                .foregroundColor(.secondary)
+                .padding()
+            
+            Spacer()
         }
-        .ignoresSafeArea()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
     }
 }
 
@@ -120,33 +142,10 @@ struct HeadlineRowView: View {
                 .font(.headline)
                 .lineLimit(2)
             
-
             Text("By \(headline.author)")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
         .padding(.vertical, 8)
-    }
-}
-
-// Preview provider for SwiftUI Canvas
-struct HeadlinesView_Previews: PreviewProvider {
-    static var previews: some View {
-        // Create a mock view model for preview
-        let mockUseCase = MockGetHeadlinesUseCase()
-        let viewModel = DependencyContainer.shared.makeHeadlineViewModel(with: mockUseCase)
-        return HeadlinesView(viewModel: viewModel)
-    }
-}
-
-// Mock for Preview
-private class MockGetHeadlinesUseCase: GetHeadlinesUseCase {
-    func execute() async throws -> [Headline] {
-        // Return sample data for preview
-        return [
-            Headline(id: 1, title: "SwiftUI 5 Announced with Major Performance Improvements", author: "John Appleseed"),
-            Headline(id: 2, title: "The Future of Swift Concurrency", author: "Tim Apple"),
-            Headline(id: 3, title: "iOS 19 Rumored to Include AI-Powered Features", author: "Charles Dickens")
-        ]
     }
 }
