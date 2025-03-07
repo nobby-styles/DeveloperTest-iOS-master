@@ -3,15 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		5E25FC8A26D3A09300735010 /* AtomicMediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E25FC8926D3A09300735010 /* AtomicMediaApp.swift */; };
 		5E25FC8E26D3A09400735010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E25FC8D26D3A09400735010 /* Assets.xcassets */; };
 		5E25FC9126D3A09400735010 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E25FC9026D3A09400735010 /* Preview Assets.xcassets */; };
-		5E25FC9C26D3A09500735010 /* AtomicMediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E25FC9B26D3A09500735010 /* AtomicMediaTests.swift */; };
 		5E25FCBE26D3A0F700735010 /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 5E25FCBD26D3A0F700735010 /* readme.md */; };
+		89717D522D79C28D0048C6D0 /* HeadlineViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89717D512D79C2360048C6D0 /* HeadlineViewModelTests.swift */; };
 		C19BB9DB29911256005933AD /* API in Frameworks */ = {isa = PBXBuildFile; productRef = C19BB9DA29911256005933AD /* API */; };
 /* End PBXBuildFile section */
 
@@ -32,11 +32,18 @@
 		5E25FC9026D3A09400735010 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5E25FC9226D3A09400735010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E25FC9726D3A09500735010 /* AtomicMediaDeveloperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtomicMediaDeveloperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E25FC9B26D3A09500735010 /* AtomicMediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicMediaTests.swift; sourceTree = "<group>"; };
 		5E25FC9D26D3A09500735010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E25FCBD26D3A0F700735010 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
+		89717D512D79C2360048C6D0 /* HeadlineViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineViewModelTests.swift; sourceTree = "<group>"; };
 		C19BB9D8299107C6005933AD /* API */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = API; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		89717D432D79B8FD0048C6D0 /* Presentation */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Presentation; sourceTree = "<group>"; };
+		89717D532D79E6830048C6D0 /* Domain */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Domain; sourceTree = "<group>"; };
+		89717D5B2D79E6F80048C6D0 /* Data */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Data; sourceTree = "<group>"; };
+		89717D652D79E9D50048C6D0 /* DI */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = DI; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		5E25FC8326D3A09300735010 /* Frameworks */ = {
@@ -81,6 +88,10 @@
 		5E25FC8826D3A09300735010 /* AtomicMedia */ = {
 			isa = PBXGroup;
 			children = (
+				89717D652D79E9D50048C6D0 /* DI */,
+				89717D5B2D79E6F80048C6D0 /* Data */,
+				89717D532D79E6830048C6D0 /* Domain */,
+				89717D432D79B8FD0048C6D0 /* Presentation */,
 				5E25FC8926D3A09300735010 /* AtomicMediaApp.swift */,
 				5E25FC8D26D3A09400735010 /* Assets.xcassets */,
 				5E25FC9226D3A09400735010 /* Info.plist */,
@@ -100,7 +111,7 @@
 		5E25FC9A26D3A09500735010 /* AtomicMediaDeveloperTests */ = {
 			isa = PBXGroup;
 			children = (
-				5E25FC9B26D3A09500735010 /* AtomicMediaTests.swift */,
+				89717D512D79C2360048C6D0 /* HeadlineViewModelTests.swift */,
 				5E25FC9D26D3A09500735010 /* Info.plist */,
 			);
 			path = AtomicMediaDeveloperTests;
@@ -127,6 +138,12 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				89717D432D79B8FD0048C6D0 /* Presentation */,
+				89717D532D79E6830048C6D0 /* Domain */,
+				89717D5B2D79E6F80048C6D0 /* Data */,
+				89717D652D79E9D50048C6D0 /* DI */,
 			);
 			name = AtomicMediaDeveloper;
 			packageProductDependencies = (
@@ -224,7 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E25FC9C26D3A09500735010 /* AtomicMediaTests.swift in Sources */,
+				89717D522D79C28D0048C6D0 /* HeadlineViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,7 +419,6 @@
 		5E25FCAF26D3A09500735010 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -424,7 +440,6 @@
 		5E25FCB026D3A09500735010 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
