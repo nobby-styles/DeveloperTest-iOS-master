@@ -1,23 +1,25 @@
 //
-//  iOS_Dev_TestApp.swift
-//  iOS Dev Test
+//  AtomicMediaDeveloperApp.swift
+//  AtomicMediaDeveloper
+//
+//  Created by Robert Redmond on 07/03/2025.
+//
 //
 
 import SwiftUI
-import API
 
 @main
 struct AtomicMediaDeveloperApp: App {
-    
-    // You can make an instance of the API like this:
-    // var api:API = APIBuilder().makeAPI()
-
-    // Or like this for a simulated offline API:
-    // var offlineApi:API = APIBuilder().makeAPI(offline: true)
+    // Create ViewModel at the app level using DI container
+    @StateObject private var headlineViewModel = DependencyContainer.shared.makeHeadlineViewModel()
 
     var body: some Scene {
         WindowGroup {
-            Text("Put your implementation here")
+            HeadlinesView(viewModel: headlineViewModel)
+                .onAppear {
+                    // Pre-fetch headlines when app starts to avoid the initial error
+                    headlineViewModel.refreshHeadlines()
+                }
         }
     }
 }
