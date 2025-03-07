@@ -63,7 +63,6 @@ public class StoryViewModel: ObservableObject {
         guard let publishedAt = story?.publishedAt else { return nil }
 
         let formatter = DateFormatter()
-        formatter.formatterBehavior = .behavior10_4
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
         return formatter.string(from: publishedAt)
     }
