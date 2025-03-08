@@ -5,13 +5,6 @@
 //  Created by Robert Redmond on 07/03/2025.
 //
 
-//
-//  HeadlinesView.swift
-//  AtomicMediaDeveloper
-//
-//  Created by Robert Redmond on 07/03/2025.
-//
-
 import SwiftUI
 
 struct HeadlinesView: View {
