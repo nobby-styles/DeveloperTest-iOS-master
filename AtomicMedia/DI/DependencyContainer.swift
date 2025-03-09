@@ -5,15 +5,6 @@
 //  Created by Robert Redmond on 08/03/2025.
 //
 
-
-//
-//  DependencyContainer.swift
-//  AtomicMediaDeveloper
-//
-//  Created by Robert Redmond on 06/03/2025.
-//  Updated on 07/03/2025.
-//
-
 import Foundation
 import API
 
@@ -40,11 +31,6 @@ public class DependencyContainer {
     // Factory method for HeadlineRepository with cache
     private func makeHeadlineRepository() -> HeadlineRepository {
         return CachedHeadlineRepository(api: makeAPI(), cache: InMemoryCache.shared)
-    }
-    
-    // For testing - allows overriding dependencies
-    @MainActor public func makeHeadlineViewModel(with useCase: GetHeadlinesUseCase) -> HeadlineViewModel {
-        return HeadlineViewModel(getHeadlinesUseCase: useCase)
     }
     
     // MARK: - StoryViewModel

@@ -5,14 +5,6 @@
 //  Created by Robert Redmond on 08/03/2025.
 //
 
-
-//
-//  CachedHeadlineRepository.swift
-//  AtomicMediaDeveloper
-//
-//  Created on 07/03/2025.
-//
-
 import Foundation
 import API
 
@@ -35,8 +27,8 @@ public class CachedHeadlineRepository: HeadlineRepository {
             let headlines = headlinesDto.map { mapToDomain($0) }
             
             // Cache the successful result
-            cache.set(value: headlines, for: CacheKeys.headlines)
-            
+             cache.set(value: headlines, for: CacheKeys.headlines)
+
             return headlines
         } catch {
             // If API call fails, try to get from cache

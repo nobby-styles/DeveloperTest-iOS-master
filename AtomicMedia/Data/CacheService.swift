@@ -1,9 +1,10 @@
 //
-//  DataCacheService.swift
+//  CacheService.swift
 //  AtomicMediaDeveloper
 //
-//  Created by Robert Redmond on 08/03/2025./  Created on 07/03/2025.
+//  Created by Robert Redmond on 08/03/2025.
 //
+
 
 import Foundation
 
@@ -13,6 +14,15 @@ public protocol CacheService {
     func set<T>(value: T, for key: String)
     func clear(key: String)
     func clearAll()
+}
+
+// Internal wrapper class for storing value types in NSCache
+private class CacheWrapper<T>: NSObject {
+    let value: T
+    
+    init(value: T) {
+        self.value = value
+    }
 }
 
 // In-memory cache implementation using NSCache
@@ -25,23 +35,20 @@ public class InMemoryCache: CacheService {
     private init() {
         // Configure NSCache defaults
         cache.name = "AtomicMediaDeveloperCache"
-        // Optional: Set limits if needed
-        // cache.countLimit = 100
-        // cache.totalCostLimit = 50_000_000 // ~50MB
     }
     
     public func get<T>(for key: String) -> T? {
-        return cache.object(forKey: key as NSString) as? T
+        // Try to retrieve the wrapper object
+        if let wrapper = cache.object(forKey: key as NSString) as? CacheWrapper<T> {
+            return wrapper.value
+        }
+        return nil
     }
     
     public func set<T>(value: T, for key: String) {
-        // NSCache only accepts AnyObject, so we need to ensure the value is an object
-        guard let value = value as? AnyObject else {
-            print("Warning: Could not cache value for key \(key). Value must be a reference type.")
-            return
-        }
-        
-        cache.setObject(value, forKey: key as NSString)
+        // Wrap the value regardless of its type
+        let wrapper = CacheWrapper(value: value)
+        cache.setObject(wrapper, forKey: key as NSString)
     }
     
     public func clear(key: String) {

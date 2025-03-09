@@ -46,6 +46,8 @@ public class APIStoryRepository: StoryRepository {
             title: dto.title,
             author: dto.author,
             content: dto.content,
+
+            //fix for a bug in the api data
             publishedAt: Date(timeIntervalSince1970: dto.publicationDate.timeIntervalSince1970 / 1000)
         )
     }
