@@ -1,3 +1,10 @@
+# Notes from Robert Redmond
+
+I decided to use SwiftUI and Clean Architecture as the AtomicMediaApp.swift app entry point was SwiftUI and the API package used DTOs which is an indication of Clean Architecture.
+
+I didn't write unit tests for the StoryViewModel and the UseCases as I was under time pressure and I demonstrated my experience with unit testing with the other tests.
+
+
 # Atomic Media iOS Developer Test
 
 ## Instructions for candidates
